@@ -1,0 +1,48 @@
+@import "reset"
+
+$coverWidth: 851px
+$coverHeight: 315px
+
+$profileWidth: 160px
+$profileHeight: 160px
+$profileTop: 176px
+$profileLeft: 16px
+$profileBorder: 4px
+
+#original-image
+	position: static
+
+#maker
+
+	position: relative
+	height: $profileHeight + $profileTop + $profileBorder
+	margin: 5px
+	// width: : $coverWidth + $profileWidth
+
+	*
+		position: absolute
+
+
+	#cover
+		// Don't touch the width and height of a canvas
+		// stupid rules..
+		// width: 851px
+		// height: 315px
+		left: 0px
+		top: 0px
+		// background-color: blue
+
+	#profile
+		// Don't touch the width and height of a canvas
+		// stupid rules..
+		// width: $profileWidth
+		// height: $profileHeight
+
+		top: $profileTop
+		left: $profileLeft
+		vertical-align: center
+		// background-color: red
+		border-color: white
+		border-radius: 2px
+		border-style: solid
+		border-width: $profileBorder

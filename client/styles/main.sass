@@ -3,14 +3,27 @@
 $coverWidth: 851px
 $coverHeight: 315px
 
+// Facebook scales a 180x180 picture down to 160
 $profileWidth: 160px
 $profileHeight: 160px
+
 $profileTop: 176px
 $profileLeft: 16px
 $profileBorder: 4px
 
 #original-image
 	position: static
+
+#urlForm
+	display: flex
+	input
+		flex-grow: 5
+		border-style: solid
+		border-width: 2px
+		border-radius: 3px
+	button
+		flex-grow: 1
+
 
 #maker
 
@@ -35,8 +48,8 @@ $profileBorder: 4px
 	#profile
 		// Don't touch the width and height of a canvas
 		// stupid rules..
-		// width: $profileWidth
-		// height: $profileHeight
+		width: $profileWidth
+		height: $profileHeight
 
 		top: $profileTop
 		left: $profileLeft

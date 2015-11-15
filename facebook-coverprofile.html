@@ -5,12 +5,19 @@
 <body>
 	<h1>Facebook Cover Profile</h1>
 
+	<form id="urlForm">
+		<input
+		name="url"
+		type="url"
+		placeholder="Damn, son! Where'd you find this? Enter the image URL!"
+		/>
+		<button>Update</button>
+	</form>
 	<div id="maker">
 		{{> maker}}
 	</div>
-	<img
-	id="original-image"
-	src="images/space.jpg"
-	alt="Depth of space" />
+	<p>
+		<b>Protip: you can drag the image (only Y-axis for now)</b>
+	</p>
 
 </body>

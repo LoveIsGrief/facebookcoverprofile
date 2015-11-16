@@ -11,26 +11,35 @@ $profileTop: 176px
 $profileLeft: 16px
 $profileBorder: 4px
 
-#original-image
-	position: static
+$mainColor: rgb(233, 234, 237)
+
+body
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	background-color: $mainColor
 
 #urlForm
-	display: flex
 	input
-		flex-grow: 5
+		// flex-grow: 5
 		border-style: solid
 		border-width: 2px
 		border-radius: 3px
+	input::before,input::after
+		content: "1"
 	button
 		flex-grow: 1
 
+$coverBorder: 1px
 
 #maker
 
 	position: relative
 	height: $profileHeight + $profileTop + $profileBorder
+	width: $coverWidth + ( $coverBorder * 2)
 	margin: 5px
-	// width: : $coverWidth + $profileWidth
+
 
 	*
 		position: absolute
@@ -43,19 +52,20 @@ $profileBorder: 4px
 		// height: 315px
 		left: 0px
 		top: 0px
-		// background-color: blue
+		border: $coverBorder outset $mainColor
+		z-index: 1
 
 	#profile
-		// Don't touch the width and height of a canvas
-		// stupid rules..
 		width: $profileWidth
 		height: $profileHeight
+		z-index: 999
+
+
 
 		top: $profileTop
 		left: $profileLeft
 		vertical-align: center
-		// background-color: red
 		border-color: white
 		border-radius: 2px
-		border-style: solid
+		border-style: outset
 		border-width: $profileBorder

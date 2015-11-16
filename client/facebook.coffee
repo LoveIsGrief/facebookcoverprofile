@@ -138,4 +138,4 @@ init = ->
 
 	update()
 
-document.onready = init
+$(document).ready init

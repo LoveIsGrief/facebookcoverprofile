@@ -112,6 +112,7 @@ Reseting calculations
 ###
 reset = ->
 	minY = translatedY = previousY = 0
+	false
 
 ###
 TODO

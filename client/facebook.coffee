@@ -25,15 +25,18 @@ image = null
 A refresh of the canvas to allow us to draw afresh
 ###
 clearCanvas = (canvas)->
+	if typeof canvas == "string"
+		canvas = document.getElementById canvas
+		console.log canvas
+
+	return if not canvas
 	canvas.getContext("2d").clearRect 0,0,
 		canvas.width, canvas.height
 
 
 update = ->
 
-	url = $("#urlForm>input").val()
-	return if not url
-
+	url = $("#urlForm>input").val() || "images/default.png"
 	cover = document.getElementById("cover")
 	profile = document.getElementById("profile")
 
@@ -132,5 +135,7 @@ init = ->
 	$("#cover")
 	.mousedown mousestart
 	.mousemove drag
+
+	update()
 
 document.onready = init

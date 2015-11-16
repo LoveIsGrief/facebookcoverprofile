@@ -41,6 +41,11 @@
 	<div id="maker">
 		{{> maker}}
 	</div>
+
+	{{#if currentUser}}
+		<button id="saveToLibrary">Save to library</button>
+	{{/if}}
+
 	<p>
 		<b>Hint: </b>
 		you can drag the image (only Y-axis for now)
@@ -50,6 +55,10 @@
 		<b>Protip: </b>
 		Right click on the images to save them!
 	</p>
+
+	<div id="library">
+		{{> library}}
+	</div>
 
 
 </body>

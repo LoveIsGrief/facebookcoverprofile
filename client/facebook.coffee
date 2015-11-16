@@ -19,6 +19,8 @@ The lowest we can drag the picture
 ###
 maxY = 0
 
+scale = 0
+
 image = null
 
 ###
@@ -119,8 +121,18 @@ TODO
 Allow users to save good pictures into the database and make them browseable
 e.g http://cdn.superbwallpapers.com/wallpapers/games/dungeons-dragons-20207-1366x768.jpg
 ###
-saveGoodPicture = ->
-
+saveToLibrary = ->
+	url = $("#urlForm>input").val()
+	return if not url
+	imageModel = new ImageModel "test",
+		url,
+		Meteor.userId(),
+		scale,
+		{
+			x: 0
+			y: translatedY
+		}
+	Images.insert imageModel
 ###
 Setup the events
 ###
@@ -132,6 +144,8 @@ init = ->
 	$("#urlForm>button")
 	.click reset
 	.click update
+
+	$(document).on "click","#saveToLibrary",  saveToLibrary
 
 	$("#cover")
 	.mousedown mousestart

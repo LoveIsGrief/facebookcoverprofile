@@ -1,6 +1,13 @@
 <template name="library">
 	<h2>Library</h2>
-	{{#each images}}
-		<p>{{url}}</p>
-	{{/each}}
+	<ul class="images">
+		{{#each images}}
+			<li class="imageItem">
+				<div class="header">
+					<span class="title">{{title}}</span>
+					<a class="url" href="{{url}}"><span>Source</span></a>
+				</div>
+			</li>
+		{{/each}}
+	</ul>
 </template>

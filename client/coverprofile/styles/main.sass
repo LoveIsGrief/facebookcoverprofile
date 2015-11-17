@@ -1,0 +1,39 @@
+@import "{}/client/styles/_variables.scss"
+@import variables
+
+.coverprofile
+
+	position: relative
+	height: $profileHeight + $profileTop + $profileBorder
+	width: $coverWidth + ( $coverBorder * 2)
+	margin: 5px
+
+
+	*
+		position: absolute
+
+
+	.cover
+		// Don't touch the width and height of a canvas
+		// stupid rules..
+		// width: 851px
+		// height: 315px
+		left: 0px
+		top: 0px
+		border: $coverBorder outset $mainColor
+		z-index: 1
+
+	.profile
+		width: $profileWidth
+		height: $profileHeight
+		z-index: 999
+
+
+
+		top: $profileTop
+		left: $profileLeft
+		vertical-align: center
+		border-color: white
+		border-radius: 2px
+		border-style: outset
+		border-width: $profileBorder

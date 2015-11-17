@@ -1,6 +1,6 @@
-maker = Template.maker
+coverprofile = Template.coverprofile
 
-maker.onCreated ->
+coverprofile.onCreated ->
 	###
 	@property {string} url
 	@property {float} translatedByX
@@ -17,7 +17,7 @@ maker.onCreated ->
 	}
 
 	# Properties that we want to be public
-	maker.helpers {
+	coverprofile.helpers {
 		imageUrl: =>
 			@imageUrl
 		translatedBy: =>
@@ -92,5 +92,5 @@ maker.onCreated ->
 		image.src = @imageUrl
 
 
-maker.onRendered ->
+coverprofile.onRendered ->
 	@_update()

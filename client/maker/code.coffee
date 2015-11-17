@@ -1,12 +1,7 @@
 maker = Template.maker
 
-maker.onCreated ->
-	@imageUrl = new ReactiveVar ""
-
-	maker.helpers {
-		imageUrl: =>
-			@imageUrl.get()
-	}
+maker.onRendered ->
+	@coverprofile = Blaze.render Template.coverprofile, @$(".cpContainer")[0]
 
 maker.events {
 	"submit .urlForm": (event)->
@@ -14,5 +9,10 @@ maker.events {
 
 		instance = Template.instance()
 		newUrl = instance.$("input[name='url']").val()
-		instance.imageUrl.set newUrl
+		Blaze.remove instance.coverprofile
+
+		instance.coverprofile = Blaze.renderWithData Template.coverprofile, {
+				url: newUrl
+			},
+			instance.$(".cpContainer")[0]
 }

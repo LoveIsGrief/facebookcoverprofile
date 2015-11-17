@@ -19,34 +19,6 @@
 		</a>
 	</h1>
 
-	<form id="urlForm">
-		<label
-		for="url"
-		class="step-button"
-		>1</label>
-		<input
-		name="url"
-		type="url"
-		placeholder="Damn, son! Where'd you find this? Enter the image URL!"
-		/>
-		<button name="update" >Update</button>
-		<label
-		for="update"
-		class="step-button"
-		>2</label>
-	</form>
-	<div id="maker">
-		{{> maker}}
-	</div>
-	<p>
-		<b>Hint: </b>
-		you can drag the image (only Y-axis for now)
-	</p>
-
-	<p>
-		<b>Protip: </b>
-		Right click on the images to save them!
-	</p>
-
+	{{>maker}}
 
 </body>

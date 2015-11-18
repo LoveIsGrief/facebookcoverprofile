@@ -23,3 +23,10 @@ need to have this object in your settings
 # Deploying
 
 `meteor deploy --settings <your_settings.json> your.site.com`
+
+#TODO
+
+- [ ] Allow users to save good pictures
+into the database and make them browseable e.g
+[DnD](http://cdn.superbwallpapers.com/wallpapers/games/dungeons-dragons-20207-1366x768.jpg)
+

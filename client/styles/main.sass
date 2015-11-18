@@ -1,8 +1,7 @@
 @import "reset"
 
-$coverWidth: 851px
-$coverHeight: 315px
-$coverBorder: 1px
+@import "variables"
+@import "../coverprofile/styles/variables"
 
 // Facebook scales a 180x180 picture down to 160
 $profileWidth: 160px
@@ -38,7 +37,7 @@ $stepButtonBorder: 2px
 	background-color: $facebookBlue
 
 $updateButtonWidth: 80px
-#urlForm
+.urlForm
 	input
 		border-style: inset
 		border-width: 2px
@@ -50,40 +49,3 @@ $updateButtonWidth: 80px
 #forkme
 	width: 30px
 	height: 30px
-
-#maker
-
-	position: relative
-	height: $profileHeight + $profileTop + $profileBorder
-	width: $coverWidth + ( $coverBorder * 2)
-	margin: 5px
-
-
-	*
-		position: absolute
-
-
-	#cover
-		// Don't touch the width and height of a canvas
-		// stupid rules..
-		// width: 851px
-		// height: 315px
-		left: 0px
-		top: 0px
-		border: $coverBorder outset $mainColor
-		z-index: 1
-
-	#profile
-		width: $profileWidth
-		height: $profileHeight
-		z-index: 999
-
-
-
-		top: $profileTop
-		left: $profileLeft
-		vertical-align: center
-		border-color: white
-		border-radius: 2px
-		border-style: outset
-		border-width: $profileBorder

@@ -18,9 +18,8 @@ coverprofile.onCreated ->
 	}
 
 	@setImageUrlFromData = (data)=>
-		return if not data or not data["url"]
-		console.log data
-		@imageUrl.set data["url"].get() || "images/default.png"
+		return if not data
+		@imageUrl.set data["url"] || "images/default.png"
 
 	# Private vars
 	###

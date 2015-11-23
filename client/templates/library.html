@@ -3,10 +3,7 @@
 	<ul class="images">
 		{{#each images}}
 			<li class="imageItem">
-				<div class="header">
-					<span class="title">{{title}}</span>
-					<a class="url" href="{{url}}"><span>Source</span></a>
-				</div>
+				{{> coverprofile url=url}}
 			</li>
 		{{/each}}
 	</ul>

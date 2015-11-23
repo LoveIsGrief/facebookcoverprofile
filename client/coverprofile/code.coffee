@@ -138,8 +138,7 @@ coverprofile.events {
 	"mousemove .cover": (event)->
 		instance = Template.instance()
 		# Triggered only if we are dragging an image
-		# TODO and if dragging is activated
-		return if not (event.buttons and instance._image)
+		return if not (event.buttons and instance._image) or Template.currentData()["static"]
 
 		# How far did we drag
 		dy = event.offsetY - instance._previousY

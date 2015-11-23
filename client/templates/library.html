@@ -3,7 +3,15 @@
 	<ul class="images">
 		{{#each images}}
 			<li class="imageItem">
-				{{> coverprofile url=url static=true}}
+				<p>{{title}}</p>
+				<p>
+					{{> coverprofile
+						url=url
+						static=true
+						translatedByX=pan.x
+						translatedByY=pan.y
+					}}
+				</p>
 			</li>
 		{{/each}}
 	</ul>

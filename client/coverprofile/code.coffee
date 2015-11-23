@@ -16,14 +16,6 @@ coverprofile.onCreated ->
 		y: @data["translatedByY"] || 0
 	}
 
-	# Properties that we want to be public
-	coverprofile.helpers {
-		imageUrl: =>
-			@imageUrl
-		translatedBy: =>
-			@translatedBy
-	}
-
 	# Private vars
 	###
 	Where mouse previously was
@@ -104,6 +96,17 @@ coverprofile.onCreated ->
 
 
 		image.src = @imageUrl
+
+
+# Properties that we want to be public
+coverprofile.helpers {
+	imageUrl: =>
+		instance = Template.instance()
+		instance.imageUrl
+	translatedBy: =>
+		instance = Template.instance()
+		instance.translatedBy
+}
 
 
 coverprofile.onRendered ->

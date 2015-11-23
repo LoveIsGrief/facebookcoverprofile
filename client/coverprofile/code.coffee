@@ -7,7 +7,8 @@ coverprofile.onCreated ->
 	@property {float} translatedByY
 	###
 	@data = @data || {}
-	@imageUrl = @data["url"] || "images/default.png"
+
+	@imageUrl = new ReactiveVar "images/default.png"
 	###
 	Current drag of the picture
 	###
@@ -15,6 +16,11 @@ coverprofile.onCreated ->
 		x: @data["translatedByX"] || 0
 		y: @data["translatedByY"] || 0
 	}
+
+	@setImageUrlFromData = (data)=>
+		return if not data or not data["url"]
+		console.log data
+		@imageUrl.set data["url"].get() || "images/default.png"
 
 	# Private vars
 	###
@@ -95,14 +101,14 @@ coverprofile.onCreated ->
 				0,0, profile.width, profile.height
 
 
-		image.src = @imageUrl
+		image.src = @imageUrl.get()
 
 
 # Properties that we want to be public
 coverprofile.helpers {
 	imageUrl: =>
 		instance = Template.instance()
-		instance.imageUrl
+		instance.imageUrl.get()
 	translatedBy: =>
 		instance = Template.instance()
 		instance.translatedBy
@@ -110,7 +116,9 @@ coverprofile.helpers {
 
 
 coverprofile.onRendered ->
-	@_update()
+	@autorun =>
+		@setImageUrlFromData Template.currentData()
+		@_update()
 
 coverprofile.events {
 	###

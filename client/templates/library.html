@@ -2,8 +2,16 @@
 	<h2>Library</h2>
 	<ul class="images">
 		{{#each images}}
+			<!-- TODO add hover buttons
+			"Like"
+			"Customize"
+			...
+			 -->
 			<li class="imageItem">
-				<p class="title">{{title}}</p>
+				<p class="title"><a href="{{url}}">
+					{{title}}
+					</a>
+				</p>
 				<p clas="preview">
 					{{> coverprofile
 						url=url

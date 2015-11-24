@@ -3,7 +3,6 @@ class @ImageModel
 	###
 	@param {string} title
 	@param {string} url
-	@param {string} userId
 	@param {float} scaleFactor
 	@param {object} pan
 	@option pan {float} pan.x
@@ -12,7 +11,6 @@ class @ImageModel
 	constructor: (
 				@title
 				@url
-				@userId
 				@scaleFactor
 				@pan
 			)->
@@ -21,6 +19,10 @@ class @ImageModel
 		IDs of the users that liked the image
 		###
 		@likesBy = []
+		###
+		Which user is saving the image
+		###
+		@userId = null
 
 
 @Images = new Meteor.Collection "images"

@@ -5,10 +5,16 @@ coverprofile.onCreated ->
 	@property {string} url
 	@property {float} translatedByX
 	@property {float} translatedByY
+	@property {Set} registrar
 	###
 	@data = @data || {}
 
-	@imageUrl = new ReactiveVar "images/default.png"
+	# Register with parent if need be
+	if registrar = @data["registrar"]
+		registrar.add @
+
+	@defaultImageUrl = "images/default.png"
+	@imageUrl = new ReactiveVar @defaultImageUrl
 	###
 	Current drag of the picture
 	###
@@ -17,9 +23,14 @@ coverprofile.onCreated ->
 		y: @data["translatedByY"] || 0
 	}
 
+	###
+	What factor was used to scale the image
+	###
+	@scale = 0
+
 	@setImageUrlFromData = (data)=>
 		return if not data
-		@imageUrl.set data["url"] || "images/default.png"
+		@imageUrl.set data["url"] || @defaultImageUrl
 
 	# Private vars
 	###
@@ -76,22 +87,22 @@ coverprofile.onCreated ->
 			ratio = image.width / image.height
 
 			#TODO allow the user to define a scale
-			scale = cover.width / image.width
-			@_minY = totalHeight - (image.height * scale)
+			@scale = cover.width / image.width
+			@_minY = totalHeight - (image.height * @scale)
 
 			# Draw a scaled version for the cover
 			@_clearCanvas cover
 			coverC.drawImage @_image,
 				0, @translatedBy.y
 				cover.width,
-				image.height * scale
+				image.height * @scale
 
 			# Coordinates and dimensions of profile picture
 			# We need to project from the scaled to the original
 			s = 160
-			sx = 20/scale
-			sy = (176-@translatedBy.y)/scale
-			wx = wy = s/scale
+			sx = 20/@scale
+			sy = (176-@translatedBy.y)/@scale
+			wx = wy = s/@scale
 
 			# Draw scaled version of the profile picture projection
 			@_clearCanvas profile

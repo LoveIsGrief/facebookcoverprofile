@@ -28,6 +28,7 @@ Meteor.startup ->
 
 			imageModel.userId = userId
 			Images.insert imageModel
-
-
 	}
+
+	Meteor.publish "images", ->
+		Images.find {}

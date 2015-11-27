@@ -1,5 +1,11 @@
 <template name="library">
-	<h2>Library</h2>
+<div class="library">
+	<h1 class="title">Library</h1>
+	<ul class="tabContainer">
+		{{#each tabs}}
+			<li class="tab {{#if activeTab id}}active{{/if}}" >{{text}}</li>
+		{{/each}}
+	</ul>
 	<ul class="images">
 		{{#each images}}
 			<!-- TODO add hover buttons
@@ -23,4 +29,5 @@
 			</li>
 		{{/each}}
 	</ul>
+</div>
 </template>

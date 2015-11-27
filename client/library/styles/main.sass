@@ -1,0 +1,39 @@
+@import "{}/client/styles/_variables.scss"
+@import "{}/client/coverprofile/styles/_variables.scss"
+
+.library
+	margin-top: 10px
+	display: flex
+	flex-direction: column
+	min-width: $coverWidth
+
+	h1.title
+		text-align: center
+
+	.tabContainer
+		display: flex
+		justify-content: space-between
+
+		.tab
+			flex-grow: 1
+			list-style: none
+			border-top-style: none
+			border-top-width: 2px
+			border-top-left-radius: 20px
+			border-top-right-radius: 20px
+			border-top-color: $mainColor
+			text-align: center
+			background-color: white
+			box-shadow: 1px -1px 10px 1px grey
+
+		.tab.active
+			box-shadow: 1px -1px 10px 1px $facebookBlue
+			background-color: $facebookBlue
+	.images
+		.imageItem
+			background-color: white
+			margin: 5px
+			border-style: solid
+			border-color: $mainColor
+			border-width: 1px
+			border-radius: 5px

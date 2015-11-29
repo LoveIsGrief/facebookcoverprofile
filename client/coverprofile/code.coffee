@@ -9,28 +9,10 @@ coverprofile.onCreated ->
 	###
 	@data = @data || {}
 
-	# Register with parent if need be
-	if registrar = @data["registrar"]
-		registrar.add @
-
-	@defaultImageUrl = "images/default.png"
-	@imageUrl = new ReactiveVar @defaultImageUrl
-	###
-	Current drag of the picture
-	###
-	@translatedBy =  {
-		x: @data["translatedByX"] || 0
-		y: @data["translatedByY"] || 0
-	}
-
 	###
 	What factor was used to scale the image
 	###
 	@scale = 0
-
-	@setImageUrlFromData = (data)=>
-		return if not data
-		@imageUrl.set data["url"] || @defaultImageUrl
 
 	# Private vars
 	###
@@ -60,7 +42,11 @@ coverprofile.onCreated ->
 	Reseting calculations
 	###
 	@_reset = =>
-		minY = @translatedBy.y = @_previousY = 0
+		@translatedBy = {
+			x: 0
+			y: 0
+		}
+		minY = @_previousY = 0
 
 	###
 	A refresh of the canvas to allow us to draw afresh
@@ -71,7 +57,6 @@ coverprofile.onCreated ->
 			canvas.width, canvas.height
 
 	@_update = =>
-
 		cover = @$(".cover")[0]
 		profile = @$(".profile")[0]
 
@@ -112,6 +97,32 @@ coverprofile.onCreated ->
 
 
 		image.src = @imageUrl.get()
+
+	# Public functions
+
+	@setImageUrlFromData = (data)=>
+		return if not data
+		return if not url = data["url"]
+		return if url == @imageUrl.get()
+		# Don't reset if the url doesn't change
+		@_reset()
+		@imageUrl.set data["url"]
+
+	# Register with parent if need be
+	if registrar = @data["registrar"]
+		registrar.add @
+
+	@defaultImageUrl = "images/default.png"
+	@imageUrl = new ReactiveVar @defaultImageUrl
+	@setImageUrlFromData(@data)
+
+	###
+	Current drag of the picture
+	###
+	@translatedBy =  {
+		x: @data["translatedByX"] || 0
+		y: @data["translatedByY"] || 0
+	}
 
 
 # Properties that we want to be public

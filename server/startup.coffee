@@ -32,5 +32,39 @@ Meteor.startup ->
 			Images.insert imageModel
 	}
 
+	# Images are sorted by newest first by default
 	Meteor.publish "images", ->
-		Images.find {}
+		Images.find {},
+			sort:
+				dateAdded: -1
+
+	# Image collection sorted in descending order
+	# by number of likes
+	bestImageCollection = "bestimages"
+	Meteor.publish "bestimages", ->
+		# Since we are accessing the Images collection
+		# we need to create our own subscription
+		# because for some reason simply giving it a name
+		# won't actually use the name and will use the name
+		# of the collection returning the cursor
+		# makes sense, right?
+
+		cursor = Images.find {},
+			sort:
+				numberOfLikes: -1
+				dateAdded: -1
+
+		handle = cursor.observeChanges
+			added: (id, fields)=>
+				@added bestImageCollection, id, fields
+			removed: (id)=>
+				@removed bestImageCollection, id, fields
+			changed: (id, field)=>
+				@changed bestImageCollection, id, fields
+
+		@ready()
+
+		@onStop ->
+			handle.stop()
+		return
+

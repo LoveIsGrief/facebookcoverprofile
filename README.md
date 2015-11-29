@@ -32,6 +32,6 @@ into the database and make them browseable e.g
 - [ ] Make saving images secure
 - [ ] Load saved pictures for customization
 - [ ] Allow users to vote for other users pics
-- [ ] Add tabs for best, newest and random
+- [x] Add tabs for best, newest and random
 - [ ] Add search by image name
 - [ ] Holy shit... design - mothers weep at such grimy design!

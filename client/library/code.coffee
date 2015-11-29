@@ -1,5 +1,7 @@
 Meteor.subscribe "images"
+Meteor.subscribe "bestimages"
 
+BestImages = new Mongo.Collection "bestimages"
 library = Template.library
 
 library.onCreated ->
@@ -24,7 +26,12 @@ library.helpers {
 			instance = Template.instance()
 			switch instance.activeTab.get()
 				when "best"
+					BestImages.find {}
+				when "newest"
 					Images.find {}
+				when "random"
+					images = Images.find({})
+					_.sample images.fetch(), 10
 
 		tabs: ->
 			instance = Template.instance()

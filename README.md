@@ -31,7 +31,7 @@ into the database and make them browseable e.g
 [DnD](http://cdn.superbwallpapers.com/wallpapers/games/dungeons-dragons-20207-1366x768.jpg)
 - [ ] Make saving images secure
 - [ ] Load saved pictures for customization
-- [ ] Allow users to vote for other users pics
+- [x] Allow users to vote for other users pics
 - [x] Add tabs for best, newest and random
 - [ ] Add search by image name
 - [ ] Holy shit... design - mothers weep at such grimy design!

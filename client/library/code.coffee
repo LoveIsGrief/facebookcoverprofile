@@ -40,6 +40,8 @@ library.helpers {
 		activeTab: (tabId)->
 			Template.instance().activeTab.get() == tabId
 
+		likes: (imageModel)->
+			_.contains imageModel.likesBy, Meteor.userId()
 	}
 
 library.events
@@ -49,4 +51,5 @@ library.events
 	"click .tab": (event)->
 		instance = Template.instance()
 		instance.activeTab.set @id
-		console.log instance.activeTab.get()
+	"click .like": (event)->
+		Meteor.call("like", @._id)

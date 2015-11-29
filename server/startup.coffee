@@ -30,6 +30,29 @@ Meteor.startup ->
 			imageModel.userId = userId
 			imageModel.dateAdded = Date.now()
 			Images.insert imageModel
+		like: (id)->
+			imageModel = Images.findOne id,
+				fields:
+					likesBy: 1
+			return if not imageModel
+			uid = Meteor.userId()
+
+			# Toggle a like
+			if (i = imageModel.likesBy.indexOf uid) > -1
+				Images.update imageModel._id, {
+					$pull:
+						likesBy: uid
+					$inc:
+						numberOfLikes: -1
+				}
+			else
+				Images.update imageModel._id, {
+					$push:
+						likesBy: uid
+					$inc:
+						numberOfLikes: 1
+				}
+
 	}
 
 	# Images are sorted by newest first by default
@@ -58,8 +81,8 @@ Meteor.startup ->
 			added: (id, fields)=>
 				@added bestImageCollection, id, fields
 			removed: (id)=>
-				@removed bestImageCollection, id, fields
-			changed: (id, field)=>
+				@removed bestImageCollection, id
+			changed: (id, fields)=>
 				@changed bestImageCollection, id, fields
 
 		@ready()

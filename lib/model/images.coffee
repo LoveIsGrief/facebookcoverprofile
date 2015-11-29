@@ -19,6 +19,8 @@ class @ImageModel
 		IDs of the users that liked the image
 		###
 		@likesBy = []
+		@numberOfLikes = 0
+
 		###
 		Which user is saving the image
 		###

@@ -21,7 +21,6 @@ maker.onCreated ->
 		"""
 		imageModel = new ImageModel title || "image #{Date.now()}",
 			coverprofile.imageUrl.get(),
-			Meteor.userId(),
 			coverprofile.scale,
 			{
 				x: coverprofile.translatedBy.x

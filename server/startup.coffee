@@ -28,6 +28,7 @@ Meteor.startup ->
 					"User has already saved this image"
 
 			imageModel.userId = userId
+			imageModel.dateAdded = Date.now()
 			Images.insert imageModel
 	}
 

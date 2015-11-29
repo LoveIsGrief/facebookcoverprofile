@@ -13,6 +13,7 @@ Meteor.startup ->
 			if not userId
 				throw new Meteor.Error "logged-out",
 					"The user must be logged in save to the library"
+			# TODO do a real image model check
 			if not imageModel
 				throw new Meteor.Error "bad parameter",
 					"No image model given"

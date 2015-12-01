@@ -13,7 +13,7 @@ maker.onCreated ->
 		# let's assume we won't be registering any more children
 		coverprofile = @children.values().next().value
 
-		return if coverprofile.imageUrl == coverprofile.defaultImageUrl
+		return if coverprofile.imageUrl.get() == coverprofile.defaultImageUrl
 
 		title = prompt """Title for the image?
 		Any funny business and it gets a bad random name.
@@ -35,6 +35,7 @@ maker.helpers {
 		Template.instance().imageUrl
 	children: ->
 		Template.instance().children
+
 }
 
 maker.events {

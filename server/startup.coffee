@@ -52,7 +52,11 @@ Meteor.startup ->
 					$inc:
 						numberOfLikes: 1
 				}
-
+		delete: (id)->
+			image = Images.findOne id
+			return if not image
+			if image.userId == Meteor.userId()
+				Images.remove id
 	}
 
 	# Images are sorted by newest first by default

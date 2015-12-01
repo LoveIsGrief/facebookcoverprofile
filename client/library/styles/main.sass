@@ -48,14 +48,17 @@
 			padding-right: 8px
 		.preview
 			position: relative
+			.buttonContainer
+				position: absolute
+				bottom: 0
+				right: 0
+				.like
+					opacity: 0.3
+				.like.liked
+					opacity: 1 !important
+
 		.preview:hover
-			.like
-				opacity: 0.6
-		.like
-			opacity: 0.3
-			position: absolute
-			bottom: 0
-			right: 0
-		.like.liked
-			opacity: 1 !important
+			.buttonContainer
+				.like
+					opacity: 0.6
 

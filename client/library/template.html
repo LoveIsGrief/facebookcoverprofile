@@ -25,9 +25,15 @@
 						translatedByX=pan.x
 						translatedByY=pan.y
 					}}
-					{{#if currentUser}}
-						<button class="button like {{#if likes this}} liked {{/if}}">Like</button>
-					{{/if}}
+					<div class="buttonContainer">
+
+						{{#if currentUser}}
+							<button class="button like {{#if likes this}} liked {{/if}}">Like</button>
+						{{/if}}
+						{{#if owner this }}
+							<button class="button delete">Delete</button>
+						{{/if}}
+					</div>
 				</p>
 			</li>
 		{{/each}}

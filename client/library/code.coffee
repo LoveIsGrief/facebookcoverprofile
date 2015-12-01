@@ -42,6 +42,9 @@ library.helpers {
 
 		likes: (imageModel)->
 			_.contains imageModel.likesBy, Meteor.userId()
+
+		owner: (imageModel)->
+			imageModel.userId == Meteor.userId()
 	}
 
 library.events
@@ -53,3 +56,5 @@ library.events
 		instance.activeTab.set @id
 	"click .like": (event)->
 		Meteor.call("like", @._id)
+	"click .delete": (event)->
+		Meteor.call("delete", @._id)

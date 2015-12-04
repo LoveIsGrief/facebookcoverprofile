@@ -1,5 +1,16 @@
 class @ImageModel
 
+	@MatchPattern:
+		title: String
+		url: String
+		scaleFactor: Number
+		pan:
+			x: Number
+			y: Number
+		likesBy: Match.Optional [String]
+		numberOfLikes: Match.Optional Number
+		userId: Match.Optional Match.Any
+
 	###
 	@param {string} title
 	@param {string} url

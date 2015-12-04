@@ -29,7 +29,7 @@ need to have this object in your settings
 - [x] Allow users to save good pictures
 into the database and make them browseable e.g
 [DnD](http://cdn.superbwallpapers.com/wallpapers/games/dungeons-dragons-20207-1366x768.jpg)
-- [ ] Make saving images secure (audit-argument-checks)
+- [x] Make saving images secure (audit-argument-checks)
 - [ ] Load saved pictures for customization
 - [x] Allow users to vote for other users pics
 - [x] Add tabs for best, newest and random

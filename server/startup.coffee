@@ -9,6 +9,7 @@ Meteor.startup ->
 
 	Meteor.methods {
 		saveToLibrary: (imageModel)->
+			check imageModel, ImageModel.MatchPattern
 			userId = Meteor.userId()
 			if not userId
 				throw new Meteor.Error "logged-out",
@@ -31,6 +32,7 @@ Meteor.startup ->
 			imageModel.dateAdded = Date.now()
 			Images.insert imageModel
 		like: (id)->
+			check id, String
 			imageModel = Images.findOne id,
 				fields:
 					likesBy: 1
@@ -53,6 +55,7 @@ Meteor.startup ->
 						numberOfLikes: 1
 				}
 		delete: (id)->
+			check id, String
 			image = Images.findOne id
 			return if not image
 			if image.userId == Meteor.userId()

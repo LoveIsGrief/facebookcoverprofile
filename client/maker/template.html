@@ -17,9 +17,10 @@
 			>2</label>
 		</form>
 
-		<div class="cpContainer">
-
-		</div>
+		{{> coverprofile
+			url=imageUrl.get
+			registrar=children
+		}}
 
 		<p>
 			<b>Hint: </b>
@@ -30,6 +31,8 @@
 			<b>Protip: </b>
 			Right click on the images to save them!
 		</p>
-		<p>{{imageUrl}}</p>
+		{{#if currentUser}}
+			<button class="save">Save to library</button>
+		{{/if}}
 	</div>
 </template>

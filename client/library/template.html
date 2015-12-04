@@ -1,0 +1,42 @@
+<template name="library">
+<div class="library">
+	<h1 class="title">Library</h1>
+	<ul class="tabContainer">
+		{{#each tabs}}
+			<li class="tab {{#if activeTab id}}active{{/if}}" >{{text}}</li>
+		{{/each}}
+	</ul>
+	<ul class="images">
+		{{#each images}}
+			<!-- TODO add hover buttons
+			"Like"
+			"Customize"
+			...
+			 -->
+			<li class="imageItem">
+				<p class="title"><a href="{{url}}">
+					{{title}}
+					</a>
+				</p>
+				<p class="preview">
+					{{> coverprofile
+						url=url
+						static=true
+						translatedByX=pan.x
+						translatedByY=pan.y
+					}}
+					<div class="buttonContainer">
+
+						{{#if currentUser}}
+							<button class="button like {{#if likes this}} liked {{/if}}">Like</button>
+						{{/if}}
+						{{#if owner this }}
+							<button class="button delete">Delete</button>
+						{{/if}}
+					</div>
+				</p>
+			</li>
+		{{/each}}
+	</ul>
+</div>
+</template>

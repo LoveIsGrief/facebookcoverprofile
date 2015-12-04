@@ -1,0 +1,71 @@
+@import "{}/client/styles/_variables.scss"
+@import "{}/client/coverprofile/styles/_variables.scss"
+
+.library
+	margin-top: 10px
+	display: flex
+	flex-direction: column
+	min-width: $coverWidth
+
+	h1.title
+		text-align: center
+
+	.tabContainer
+		display: flex
+		justify-content: space-between
+
+		.tab
+			flex-grow: 1
+			list-style: none
+			border-top-style: none
+			border-top-width: 2px
+			border-top-left-radius: 20px
+			border-top-right-radius: 20px
+			border-top-color: $mainColor
+			text-align: center
+			background-color: white
+			box-shadow: 1px -1px 10px 1px grey
+
+		.tab.active
+			box-shadow: 1px -1px 10px 1px $facebookBlue
+			background-color: $facebookBlue
+	.images
+		.imageItem
+			background-color: white
+			margin: 5px
+			border-style: solid
+			border-color: $mainColor
+			border-width: 1px
+			border-radius: 5px
+			.title
+				display: flex
+				justify-content: center
+		.imageItem:hover
+			border-color: $facebookBlue
+		.button
+			border-width: 1px
+			border-radius: 2px
+			border-style: solid
+			border-color: #cccccc #c5c6c8 #b6b7b9
+			background-color: rgb(246, 247, 248)
+			color: #4e5665
+			padding-left: 8px
+			padding-right: 8px
+		.preview
+			position: relative
+			.buttonContainer
+				position: absolute
+				bottom: 0
+				right: 0
+				.like
+					opacity: 0.3
+				.like:hover
+					opacity: 1 !important
+				.like.liked
+					opacity: 1 !important
+
+		.preview:hover
+			.buttonContainer
+				.like
+					opacity: 0.6
+

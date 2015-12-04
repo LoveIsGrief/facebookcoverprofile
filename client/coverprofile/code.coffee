@@ -5,24 +5,14 @@ coverprofile.onCreated ->
 	@property {string} url
 	@property {float} translatedByX
 	@property {float} translatedByY
+	@property {Set} registrar
 	###
 	@data = @data || {}
-	@imageUrl = @data["url"] || "images/default.png"
-	###
-	Current drag of the picture
-	###
-	@translatedBy =  {
-		x: @data["translatedByX"] || 0
-		y: @data["translatedByY"] || 0
-	}
 
-	# Properties that we want to be public
-	coverprofile.helpers {
-		imageUrl: =>
-			@imageUrl
-		translatedBy: =>
-			@translatedBy
-	}
+	###
+	What factor was used to scale the image
+	###
+	@scale = 0
 
 	# Private vars
 	###
@@ -52,7 +42,11 @@ coverprofile.onCreated ->
 	Reseting calculations
 	###
 	@_reset = =>
-		minY = @translatedBy.y = @_previousY = 0
+		@translatedBy = {
+			x: 0
+			y: 0
+		}
+		minY = @_previousY = 0
 
 	###
 	A refresh of the canvas to allow us to draw afresh
@@ -63,7 +57,6 @@ coverprofile.onCreated ->
 			canvas.width, canvas.height
 
 	@_update = =>
-
 		cover = @$(".cover")[0]
 		profile = @$(".profile")[0]
 
@@ -79,22 +72,22 @@ coverprofile.onCreated ->
 			ratio = image.width / image.height
 
 			#TODO allow the user to define a scale
-			scale = cover.width / image.width
-			@_minY = totalHeight - (image.height * scale)
+			@scale = cover.width / image.width
+			@_minY = totalHeight - (image.height * @scale)
 
 			# Draw a scaled version for the cover
 			@_clearCanvas cover
 			coverC.drawImage @_image,
 				0, @translatedBy.y
 				cover.width,
-				image.height * scale
+				image.height * @scale
 
 			# Coordinates and dimensions of profile picture
 			# We need to project from the scaled to the original
 			s = 160
-			sx = 20/scale
-			sy = (176-@translatedBy.y)/scale
-			wx = wy = s/scale
+			sx = 20/@scale
+			sy = (176-@translatedBy.y)/@scale
+			wx = wy = s/@scale
 
 			# Draw scaled version of the profile picture projection
 			@_clearCanvas profile
@@ -103,11 +96,50 @@ coverprofile.onCreated ->
 				0,0, profile.width, profile.height
 
 
-		image.src = @imageUrl
+		image.src = @imageUrl.get()
+
+	# Public functions
+
+	@setImageUrlFromData = (data)=>
+		return if not data
+		return if not url = data["url"]
+		return if url == @imageUrl.get()
+		# Don't reset if the url doesn't change
+		@_reset()
+		@imageUrl.set data["url"]
+
+	# Register with parent if need be
+	if registrar = @data["registrar"]
+		registrar.add @
+
+	@defaultImageUrl = "images/default.png"
+	@imageUrl = new ReactiveVar @defaultImageUrl
+	@setImageUrlFromData(@data)
+
+	###
+	Current drag of the picture
+	###
+	@translatedBy =  {
+		x: @data["translatedByX"] || 0
+		y: @data["translatedByY"] || 0
+	}
+
+
+# Properties that we want to be public
+coverprofile.helpers {
+	imageUrl: =>
+		instance = Template.instance()
+		instance.imageUrl.get()
+	translatedBy: =>
+		instance = Template.instance()
+		instance.translatedBy
+}
 
 
 coverprofile.onRendered ->
-	@_update()
+	@autorun =>
+		@setImageUrlFromData Template.currentData()
+		@_update()
 
 coverprofile.events {
 	###
@@ -128,8 +160,7 @@ coverprofile.events {
 	"mousemove .cover": (event)->
 		instance = Template.instance()
 		# Triggered only if we are dragging an image
-		# TODO and if dragging is activated
-		return if not (event.buttons and instance._image)
+		return if not (event.buttons and instance._image) or Template.currentData()["static"]
 
 		# How far did we drag
 		dy = event.offsetY - instance._previousY

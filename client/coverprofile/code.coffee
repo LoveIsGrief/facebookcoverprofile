@@ -13,6 +13,7 @@ coverprofile.onCreated ->
 	What factor was used to scale the image
 	###
 	@scale = 0
+	@scalable = false || @data["scalable"]
 
 	@mouseMoveStarted = false
 
@@ -182,9 +183,11 @@ coverprofile.events {
 		instance.mouseMoveStarted = false
 
 	"wheel .cover": (event)->
-		event.preventDefault()
 
 		instance = Template.instance()
+		return if not (instance._image and instance.scalable)
+
+		event.preventDefault()
 
 		wheelEvent = event.originalEvent
 		direction = if wheelEvent.deltaY < 0 then 0.01 else -0.01

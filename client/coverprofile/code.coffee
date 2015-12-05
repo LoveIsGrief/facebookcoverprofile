@@ -20,16 +20,7 @@ coverprofile.onCreated ->
 	We need this to calculate how far the mouse moved when dragged
 	###
 	@_previousY = 0
-
-	###
-	The highest we can drag the picture up
-	###
-	@_minY = 0
-
-	###
-	The lowest we can drag the picture
-	###
-	@_maxY = 0
+	@_previousX = 0
 
 	###
 	Active image element
@@ -41,12 +32,14 @@ coverprofile.onCreated ->
 	###
 	Reseting calculations
 	###
+	@_hasBeenReset = true
 	@_reset = =>
 		@translatedBy = {
 			x: 0
 			y: 0
 		}
-		minY = @_previousY = 0
+		@_previousX = @_previousY = @scale = 0
+		@_hasBeenReset = true
 
 	###
 	A refresh of the canvas to allow us to draw afresh
@@ -71,21 +64,21 @@ coverprofile.onCreated ->
 		image.onload = =>
 			ratio = image.width / image.height
 
-			#TODO allow the user to define a scale
-			@scale = cover.width / image.width
-			@_minY = totalHeight - (image.height * @scale)
+			if @_hasBeenReset
+				@scale = cover.width / image.width
+				@_hasBeenReset = false
 
 			# Draw a scaled version for the cover
 			@_clearCanvas cover
 			coverC.drawImage @_image,
-				0, @translatedBy.y
-				cover.width,
+				@translatedBy.x, @translatedBy.y
+				image.width*@scale,
 				image.height * @scale
 
 			# Coordinates and dimensions of profile picture
 			# We need to project from the scaled to the original
 			s = 160
-			sx = 20/@scale
+			sx = (20-@translatedBy.x)/@scale
 			sy = (176-@translatedBy.y)/@scale
 			wx = wy = s/@scale
 
@@ -94,6 +87,7 @@ coverprofile.onCreated ->
 			profileC.drawImage @_image,
 				sx,sy, wx, wy
 				0,0, profile.width, profile.height
+
 
 
 		image.src = @imageUrl.get()
@@ -148,6 +142,7 @@ coverprofile.events {
 	"mousedown .cover": (event)->
 		instance = Template.instance()
 		instance._previousY = event.offsetY
+		instance._previousX = event.offsetX
 
 		# disable text selection after a double click
 		event.preventDefault()
@@ -158,21 +153,27 @@ coverprofile.events {
 	Only drags in Y axis for now
 	###
 	"mousemove .cover": (event)->
+
 		instance = Template.instance()
 		# Triggered only if we are dragging an image
 		return if not (event.buttons and instance._image) or Template.currentData()["static"]
 
 		# How far did we drag
 		dy = event.offsetY - instance._previousY
+		dx = event.offsetX - instance._previousX
 		instance._previousY = event.offsetY
+		instance._previousX = event.offsetX
+		instance.translatedBy.y += dy
+		instance.translatedBy.x += dx
+		instance._update()
 
-		translatedY = instance.translatedBy.y
-		translatedY += dy
+	"wheel .cover": (event)->
+		event.preventDefault()
 
-		# Don't allow to drag the image out of sight
-		if (translatedY < instance._minY) or ( translatedY > instance._maxY)
-			translatedY -= dy
+		instance = Template.instance()
 
-		instance.translatedBy.y = translatedY
+		wheelEvent = event.originalEvent
+		direction = if wheelEvent.deltaY < 0 then 0.01 else -0.01
+		instance.scale += direction
 		instance._update()
 }

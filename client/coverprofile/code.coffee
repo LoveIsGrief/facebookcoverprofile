@@ -14,6 +14,8 @@ coverprofile.onCreated ->
 	###
 	@scale = 0
 
+	@mouseMoveStarted = false
+
 	# Private vars
 	###
 	Where mouse previously was
@@ -143,6 +145,7 @@ coverprofile.events {
 		instance = Template.instance()
 		instance._previousY = event.offsetY
 		instance._previousX = event.offsetX
+		instance.mouseMoveStarted = true
 
 		# disable text selection after a double click
 		event.preventDefault()
@@ -156,16 +159,27 @@ coverprofile.events {
 
 		instance = Template.instance()
 		# Triggered only if we are dragging an image
-		return if not (event.buttons and instance._image) or Template.currentData()["static"]
+		return if not
+			(event.buttons and instance._image) or
+			Template.currentData()["static"] or
+			not instance.mouseMoveStarted
+
 
 		# How far did we drag
 		dy = event.offsetY - instance._previousY
 		dx = event.offsetX - instance._previousX
+		# Update last position
 		instance._previousY = event.offsetY
 		instance._previousX = event.offsetX
+		# Move
 		instance.translatedBy.y += dy
 		instance.translatedBy.x += dx
+		# Display
 		instance._update()
+
+	"mouseup .cover": (event)->
+		instance = Template.instance()
+		instance.mouseMoveStarted = false
 
 	"wheel .cover": (event)->
 		event.preventDefault()

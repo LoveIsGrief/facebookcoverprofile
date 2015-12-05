@@ -71,7 +71,7 @@ Meteor.startup ->
 	# Image collection sorted in descending order
 	# by number of likes
 	bestImageCollection = "bestimages"
-	Meteor.publish "bestimages", ->
+	Meteor.publish bestImageCollection, ->
 		# Since we are accessing the Images collection
 		# we need to create our own subscription
 		# because for some reason simply giving it a name

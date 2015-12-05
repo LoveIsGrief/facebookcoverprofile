@@ -5,15 +5,11 @@ coverprofile.onCreated ->
 	@property {string} url
 	@property {float} translatedByX
 	@property {float} translatedByY
+	@property {float} scale
+	@property {boolean} scalable
 	@property {Set} registrar
 	###
 	@data = @data || {}
-
-	###
-	What factor was used to scale the image
-	###
-	@scale = 0
-	@scalable = false || @data["scalable"]
 
 	@mouseMoveStarted = false
 
@@ -114,12 +110,20 @@ coverprofile.onCreated ->
 	@setImageUrlFromData(@data)
 
 	###
+	What factor was used to scale the image
+	###
+	@scale = @data["scale"] || 0
+	@scalable = false || @data["scalable"]
+
+	###
 	Current drag of the picture
 	###
 	@translatedBy =  {
 		x: @data["translatedByX"] || 0
 		y: @data["translatedByY"] || 0
 	}
+
+	@_hasBeenReset = @scale == 0
 
 
 # Properties that we want to be public

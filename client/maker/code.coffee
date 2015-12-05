@@ -30,6 +30,14 @@ maker.onCreated ->
 			if error
 				alert error.reason
 
+	@reset = ->
+		return if not @children.size
+
+		# let's assume we won't be registering any more children
+		coverprofile = @children.values().next().value
+		coverprofile._reset()
+		coverprofile._update()
+
 maker.helpers {
 	imageUrl: ->
 		Template.instance().imageUrl
@@ -49,4 +57,8 @@ maker.events {
 	"click .save": (event)->
 		instance = Template.instance()
 		instance.saveToLibrary()
+
+	"click .reset": (event)->
+		instance = Template.instance()
+		instance.reset()
 }

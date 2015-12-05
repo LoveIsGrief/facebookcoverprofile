@@ -20,11 +20,12 @@
 		{{> coverprofile
 			url=imageUrl.get
 			registrar=children
+			scalable=true
 		}}
 
 		<p>
 			<b>Hint: </b>
-			you can drag the image (only Y-axis for now)
+			you can drag and zoom the image
 		</p>
 
 		<p>
@@ -34,5 +35,6 @@
 		{{#if currentUser}}
 			<button class="save">Save to library</button>
 		{{/if}}
+		<button class="reset">Reset dimensions</button>
 	</div>
 </template>
